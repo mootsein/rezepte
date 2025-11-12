@@ -1,0 +1,55 @@
+/* print.css - Styles for printing recipe details */
+
+@media print {
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Show only the recipe modal and its content */
+    .modal-backdrop, .modal {
+        visibility: visible;
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        box-shadow: none;
+        background-color: white;
+    }
+
+    .modal-content, .modal-content * {
+        visibility: visible;
+    }
+    
+    .modal-content {
+        padding: 0;
+        border: none;
+    }
+
+    /* Hide buttons and other non-essential elements within the modal */
+    .modal-close, #pdf-export-btn, .rating-stars, #login-from-modal {
+        display: none;
+    }
+
+    /* Ensure links are printed clearly */
+    a {
+        text-decoration: underline;
+        color: #000;
+    }
+
+    /* Reset layout for printing */
+    body {
+        background-color: white;
+        color: black;
+        line-height: 1.4;
+        font-family: 'Times New Roman', Times, serif; /* A serif font is often better for print */
+    }
+
+    h2, h3 {
+        page-break-after: avoid;
+    }
+
+    ul, ol {
+        page-break-inside: avoid;
+    }
+}

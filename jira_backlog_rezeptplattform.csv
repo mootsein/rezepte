@@ -1,0 +1,32 @@
+﻿Issue Type,Summary,Description,Acceptance Criteria,Epic Link,Story Points,Priority,Components,Labels,Fix Version/s
+Story,Registrierung: E-Mail + Passwort (Double-Opt-In),"Als Nutzer will ich mich mit E-Mail/Passwort registrieren, um ein Profil zu nutzen.","Gegeben: Formular mit Feldern {E-Mail, Passwort, AGB/DSGVO}. Wenn Eingaben valide, dann: Konto in Status 'pending', Double-Opt-In-Mail, nach Bestätigung Status 'active'. Fehler/Rate-Limits und klare Meldungen.",E1,3,Medium,"Auth,Frontend",mvp,v1
+Story,Login + Session-Management,Als Nutzer will ich mich sicher anmelden und angemeldet bleiben.,"Wenn Login erfolgreich, dann: Session-Cookie HttpOnly/SameSite=Lax, Idle-Timeout 30 min, Remember-Me optional (30 Tage, revokabel). Brute-Force-Protections aktiv.",E1,5,Medium,"Auth,Backend",mvp,v1
+Story,Passwort zurücksetzen,Als Nutzer will ich mein Passwort zurücksetzen können.,"Wenn ich Reset anfordere, dann: Token (15 min), sichere Seite, Passwort-Policy, alle Sessions außer aktuellem Gerät invalidiert.",E1,3,Medium,"Auth,Frontend",mvp,v1
+Story,"Social Login (Apple, Google)",Als Nutzer will ich mich per Social Login anmelden.,OAuth2/OIDC-Flow; Account-Verknüpfung sichtbar; Widerruf möglich; Sicherheits-Events im Audit-Log.,E1,5,Medium,"Auth,Frontend",next,v1
+Story,Volltextsuche mit Autocomplete,Als Nutzer möchte ich Rezepte schnell finden.,"Autocomplete <200 ms p95; Ergebnisliste zeigt Titel, Bild, Zeit, Bewertungen; Fallback-Tipps bei 0 Treffern.",E2,8,High,Search,mvp,v1
+Story,Facettenfilter Zeit/Diät/Allergene,"Als Nutzer will ich nach Zubereitungszeit, Diäten und Allergenen filtern.",Filter kombinierbar; UI zeigt aktive Filter; p95 Server <150 ms; Filterpersistenz in URL.,E2,5,Medium,"Search,Catalog",mvp,v1
+Story,Sortierung & Relevanz,Als Nutzer will ich sinnvolle Sortierungen.,"Sortierung: Relevanz, Bewertung, Zeit, Neu; Relevanz-Test gegen Gold-Set, NDCG>0.8.",E2,5,Medium,Search,next,v2
+Story,Rezept-Editor: Zutaten/Schritte/Bilder,"Als Autor will ich Rezepte mit Zutaten, Mengen, Schritten, Bildern erstellen.",Validierte Pflichtfelder; Bildlimit 10MB; Live-Preview; Auto-Save Entwurf; Konfliktlösung bei Parallelbearbeitung.,E3,8,High,"Creator,Media",mvp,v1
+Story,Moderation: Entwurf→Review→Live,Als Redakteur will ich Rezepte prüfen und freigeben.,Review-Kommentare; Statuswechsel protokolliert; SLA 2 Werktage; Benachrichtigung an Autor bei Freigabe/Ablehnung.,E3,5,Medium,Backoffice,mvp,v1
+Story,Versionierung & Änderungsprotokoll,Als Autor will ich Änderungen nachvollziehen.,Jede Freigabe erzeugt Version; Diff Ansicht Zutaten/Schritte; Rollback möglich.,E3,5,Medium,Creator,next,v2
+Story,Favoriten & Sammlungen,Als Nutzer will ich Rezepte speichern und ordnen.,Speichern in benennbare Sammlungen; Teilen via Link; Privatsphäre-Optionen.,E4,3,Medium,Profile,mvp,v1
+Story,Empfehlungen 'Für dich' (Kaltstart simpel),Als Nutzer will ich passende Vorschläge sehen.,"Heuristik: zuletzt angesehen, beliebte in Kategorie, Zeitbudget; CTR-Tracking.",E4,5,Medium,"ML,Analytics",mvp,v1
+Story,Personalisierte Empfehlungen (Phase 2),Als Betreiber will ich bessere Empfehlungen liefern.,Kollaboratives Filtern + Content-basiert; Offline-Training; A/B-Test gegen Heuristik.,E4,8,High,ML,next,v2
+Story,Einkaufsliste generieren,Als Nutzer will ich aus Rezepten eine Einkaufsliste bauen.,"Zutaten aggregiert, Mengen skalierbar; Einheitennormalisierung; Export TXT/CSV.",E5,5,Medium,Planner,mvp,v1
+Story,Wochenplan 7 Tage,Als Nutzer will ich Rezepte per Drag&Drop planen.,Summen (Kalorien/Portionen); Export/Teilen; Konflikte markieren (Allergene).,E5,8,High,"Planner,Frontend",mvp,v1
+Story,Bewertungen (1–5) & Kommentare,Als Nutzer will ich bewerten und kommentieren.,Anti-Spam; Missbrauch melden; Moderationsregeln; Sterne-Durchschnitt sichtbar.,E6,5,Medium,Community,mvp,v1
+Story,Autorenprofile & Badge-System,Als Nutzer will ich gute Autoren entdecken.,Profile mit Bio/Statistiken; Badges für Qualität/Community-Beitrag.,E6,5,Medium,Community,next,v2
+Story,WCAG-AA Mindeststandard,Als Nutzer mit Einschränkungen will ich die Seite bedienen.,Fokus sichtbar; ARIA-Labels; Farbkontraste ≥4.5:1; Tastatur komplett.,E7,5,Medium,Accessibility,mvp,v1
+Story,Internationalisierung deutsch/englisch,Als Betreiber will ich de/en anbieten.,i18n Framework; Content-Fallbacks; Locale-Switcher; Übersetzungs-Workflow.,E7,5,Medium,i18n,next,v2
+Story,Recipe JSON-LD + Sitemaps,Als Betreiber will ich Rich Snippets & Crawlbarkeit.,Valides schema.org/Recipe; ImageObject; Sitemap täglich; robots.txt gepflegt.,E8,3,Medium,SEO,mvp,v1
+Story,Core Web Vitals p75 grün,Als Nutzer will ich schnelle Seiten.,"LCP<2.5s, CLS<0.1, INP<200ms; Metriken im Dashboard; Budget im CI verankert.",E8,8,High,Perf,mvp,v1
+Story,PWA-Manifest & Installierbarkeit,Als Nutzer will ich die App installieren können.,"Manifest, Icons, Service Worker; Lighthouse PWA Pass.",E9,3,Medium,PWA,mvp,v1
+Story,Offline-Cache für Rezepte,Als Nutzer will ich Rezepte offline lesen.,Opt-in Cache; Sync bei Online; Speicherbudget beachtet; Fehlerseite offline-fähig.,E9,5,Medium,PWA,next,v2
+Story,Ereignis-Tracking & KPI-Dashboards,Als Betreiber will ich Nutzung messen.,"Consent-aware; Events für Suche, Klick, Favorit, Plan; Dashboard MAU/Retention/CTR.",E10,5,Medium,Analytics,mvp,v1
+Story,A/B-Test-Infrastruktur,Als Team will ich Varianten testen.,"Randomisierung, Bucketing, Guardrails; Statistikrichtlinie (Power, Dauer).",E10,5,Medium,Analytics,next,v2
+Story,DSGVO: Export & Löschung (DSR),Als Nutzer will ich Daten exportieren/löschen.,Selbstbedienung; Export JSON/CSV; Löschprozess mit Fristen; Audit-Log.,E11,5,Medium,"Privacy,Security",mvp,v1
+Story,Rollen & Rechte (RBAC),Als Betreiber will ich Rollen sauber trennen.,"Rollen: Nutzer, Autor, Moderator, Admin; Least-Privilege; Rechteprüfung im Backend.",E11,5,Medium,Security,next,v2
+Story,CI/CD Pipeline & Feature-Flags,Als Team will ich sicher releasen.,Build/Lint/Test; Staging-Deploy; manuelles Prod-Gate; Flags pro Feature.,E12,5,Medium,DevOps,mvp,v1
+Story,Monitoring/Logs/Traces + Alerts,Als Team will ich Vorfälle schnell erkennen.,Dashboards; SLIs/SLOs; Error Budgets; On-Call-Runbooks.,E12,5,Medium,SRE,mvp,v1
+Story,Moderationstools & Workbench,Als Moderator will ich effizient prüfen.,Warteschlangen; Filter/Sort; schnelle Aktionen; Protokollierung.,E13,5,Medium,Backoffice,mvp,v1
+Story,Kommentar-Benachrichtigungen,Als Nutzer will ich über neue Kommentare informiert werden.,Opt-in; E-Mail/Push; tief verlinkt; Rate-Limits.,E14,3,Medium,Messaging,mvp,v1

@@ -1,0 +1,99 @@
+Issue Type: Story
+Summary: Erweiterungswünsche (2. Schleife): Suche, Filter, Zufallsrezept, PDF-Export, Bewertung
+Komponenten: Search, Catalog, UX, Export, Community
+Labels: mvp-plus, discovery, engagement
+Priorität: Hoch
+
+Beschreibung / Kontext
+Die Plattform soll über das MVP hinaus zentrale Komfortfunktionen erhalten, um Auffindbarkeit, Nutzerspaß und Wiederkehr zu steigern:
+1) Suchfunktion nach Rezeptname und/oder Zutaten
+2) Filter (z. B. vegetarisch, schnell, günstig)
+3) Zufallsrezept „Überrasch mich!“
+4) Export eines Rezepts als PDF/Download
+5) Bewertungssystem (Sterne oder Likes)
+
+Business Value
+- Schnellere Zeit-zum-Rezept, bessere Orientierung, höheres Engagement und mehr geteilte Inhalte.
+- Grundlage für künftige Personalisierung und SEO (strukturierte Daten + Bewertungen).
+
+Akzeptanzkriterien (Gherkin)
+
+Suche
+- Gegeben es gibt Rezepte mit Titeln und Zutaten
+  Wenn ich im Suchfeld „Lachs Zitrone“ eingebe
+  Dann sehe ich Treffer nach Relevanz, die Titel oder Zutaten enthalten, und die Eingabe bleibt im Feld sichtbar.
+
+- Gegeben keine passenden Treffer
+  Wenn ich suche
+  Dann wird eine leere-Treffer-Seite mit Alternativen (Top-Kategorien, Zufallsrezept-Schaltfläche) angezeigt.
+
+Filter
+- Gegeben eine Ergebnisliste
+  Wenn ich „vegetarisch“ und „unter 30 Min“ aktiviere
+  Dann werden nur Rezepte angezeigt, die beide Kriterien erfüllen, und aktive Filter sind klar sichtbar und entfernbar.
+
+- Gegeben aktive Filter
+  Wenn ich die Seite neu lade oder die URL teile
+  Dann bleiben die Filter erhalten (Filterpersistenz in der URL).
+
+Zufallsrezept
+- Gegeben ein Button „Überrasch mich!“
+  Wenn ich klicke
+  Dann werde ich zu einem zufälligen veröffentlichten Rezept geführt; Wiederholung vermeidet, wenn möglich, die letzten 5 angezeigten Rezepte.
+
+PDF-Export
+- Gegeben eine Rezeptdetailseite
+  Wenn ich „PDF exportieren“ wähle
+  Dann erhalte ich ein druckfreundliches PDF (Titel, Zutaten, Schritte, Zeiten, Portionen, ggf. Bild), das lokal geladen wird.
+
+Bewertungen
+- Gegeben ich bin angemeldet
+  Wenn ich ein Rezept mit 1–5 Sternen bewerte
+  Dann wird meine Bewertung gespeichert, der Durchschnitt aktualisiert und pro Nutzer nur eine Stimme gezählt; Änderung ist möglich.
+
+- Gegeben ich bin nicht angemeldet
+  Wenn ich versuche zu bewerten
+  Dann werde ich zum Login/Signup geleitet und kehre danach zur Rezeptseite zurück.
+
+Abgrenzung (Out of Scope)
+- Personalisierte Suchreihenfolge durch ML
+- Kommentar-Threads, Moderations-Backoffice
+- Serverseitiger PDF-Branding-Editor
+
+Technische Hinweise
+- Suche: Volltext + Zutatenindex, Debounce 250 ms, Vorschläge optional.
+- Filter: kombinierbar, per Query-Param in URL; leere-Zustände mit Alternativen.
+- Zufallsrezept: DB-seitig ORDER BY RANDOM() oder gewichtete Auswahl; Duplikat-Vermeidung per Session-Cache.
+- PDF: serverseitiges Rendering oder clientseitig via Print-Styles; barrierearme Layoutvorlage.
+- Bewertungen: Tabelle ratings(user_id, recipe_id, stars, ts); Aggregat in recipes.avg_rating, ratings_count.
+- SEO: strukturierte Daten (Recipe, optional AggregateRating) vorbereiten.
+
+Nicht-funktionale Anforderungen
+- p95 Latenz Suche/Filter ≤ 200 ms Backend
+- Core Web Vitals p75 grün auf Rezeptlist-/Detailseiten
+- A11y: Tastaturbedienung, Fokuszustände, Kontraste AA
+
+Analytics / Metriken
+- Events: search_performed, filter_applied, random_recipe_clicked, pdf_export, rating_submitted
+- KPIs: CTR Suche→Rezept, Anteil Sitzungen mit Filter, Export-Rate, Bewertungsrate, Wiederkehr 7/30 Tage
+
+Abhängigkeiten
+- Veröffentlichte Rezepte mit Zutatenstruktur
+- Auth für Bewertungen
+- Consent-Layer vor Analytics
+
+Testfälle (Stichprobe)
+- Suche findet Titel vs. Zutaten korrekt; Sonderzeichen
+- Filterkombinationen inkl. „keine Treffer“
+- Zufallsrezept wiederholt nicht direkt das letzte Rezept
+- PDF enthält alle Pflichtfelder und druckt auf A4 sauber
+- Bewertung gesperrt für Gäste; Änderung für eingeloggte Nutzer möglich
+
+Definition of Done
+- AC erfüllt, Unit/E2E-Tests grün
+- Tracking-Events live in Dashboard
+- A11y-Quick-Audit ohne kritische Findings
+- Doku aktualisiert, Feature-Flags gesetzt, Rollback-Plan vorhanden
+
+Story Points: TBA
+Fix Version/s: v1.1 „MVP+ Discoverability“

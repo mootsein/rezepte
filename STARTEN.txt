@@ -1,0 +1,24 @@
+========================================
+  WEBSITE STARTEN - Port 8888
+========================================
+
+EINFACHSTE METHODE:
+-------------------
+1. Öffne den Ordner: recipe_platform
+2. Doppelklick auf: start.bat
+3. Fertig! Browser öffnet automatisch
+
+ODER KOMMANDOZEILE:
+-------------------
+cd "c:\Users\mikew\Agiles Projektmanagement\recipe_platform"
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8888
+
+WEBSITE ÖFFNEN:
+--------------
+Frontend: http://localhost:8888
+API Docs: http://localhost:8888/api/v1/docs
+Health:   http://localhost:8888/health
+
+STOPPEN:
+--------
+CTRL + C im Terminal drücken

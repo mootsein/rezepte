@@ -1,0 +1,22 @@
+╔════════════════════════════════════════╗
+║   WEBSITE STARTEN - GANZ EINFACH!     ║
+╚════════════════════════════════════════╝
+
+1. Doppelklick auf: start.bat
+
+Das war's! 🎉
+
+Die start.bat macht ALLES automatisch:
+✓ Virtuelle Umgebung erstellen (falls nötig)
+✓ Dependencies installieren (falls nötig)
+✓ Datenbank initialisieren (falls nötig)
+✓ Server starten
+✓ Browser öffnen
+
+Website öffnet sich automatisch auf:
+→ http://localhost:8888
+
+Zum Beenden:
+→ CTRL + C im Terminal drücken
+
+FERTIG! 🚀

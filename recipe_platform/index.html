@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshCook - Deine Rezeptplattform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/print.css" media="print">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="/" class="logo" id="logo-link"><i class="fas fa-utensils"></i> FreshCook</a>
+            <nav class="main-nav" id="main-nav">
+                <div class="nav-content">
+                    <div id="guest-nav">
+                        <button id="login-btn" class="btn btn-secondary">Anmelden</button>
+                        <button id="register-btn" class="btn btn-primary">Registrieren</button>
+                    </div>
+                    <div id="user-nav" class="hidden">
+                        <button id="favorites-btn" class="nav-icon-btn" title="Meine Favoriten"><i class="fas fa-heart"></i> <span class="nav-text">Favoriten</span></button>
+                        <button id="random-btn" class="nav-icon-btn" title="Zufallsrezept"><i class="fas fa-random"></i> <span class="nav-text">Zufall</span></button>
+                        <button id="add-recipe-btn" class="nav-icon-btn" title="Rezept hinzufügen"><i class="fas fa-plus"></i> <span class="nav-text">Hinzufügen</span></button>
+                        <div class="user-menu">
+                            <span id="user-avatar"></span>
+                            <span id="user-name"></span>
+                            <button id="logout-btn" class="nav-icon-btn" title="Abmelden"><i class="fas fa-sign-out-alt"></i></button>
+                        </div>
+                    </div>
+                    <div class="dark-mode-switch">
+                        <i class="fas fa-sun"></i>
+                        <label class="switch">
+                            <input type="checkbox" id="dark-mode-checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </nav>
+            <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Entdecke köstliche Rezepte</h1>
+                    <p class="hero-subtitle">Deine Plattform für inspirierende Kochideen</p>
+                </div>
+                <div class="hero-gallery">
+                    <img src="/pics/Logo.png" alt="FreshCook Logo" class="hero-image hero-logo-image">
+                    <img src="/pics/pic1.png" alt="Rezept Inspiration 1" class="hero-image">
+                    <img src="/pics/pic2.png" alt="Rezept Inspiration 2" class="hero-image">
+                    <img src="/pics/pic3.png" alt="Rezept Inspiration 3" class="hero-image">
+                </div>
+            </div>
+        </section>
+
+        <section id="search-filter" class="search-filter-section">
+            <div class="container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Suche nach Rezepten oder Zutaten...">
+                </div>
+
+                <div class="filter-area">
+                    <div class="filter-controls">
+                        <label class="filter-field">
+                            <span>Kategorie</span>
+                            <select id="kategorie"><option value="">Alle Kategorien</option></select>
+                        </label>
+                        <label class="filter-field">
+                            <span>Ernährungsform</span>
+                            <select id="ernahrung"><option value="">Alle Ernährungsformen</option></select>
+                        </label>
+                        <label class="filter-field">
+                            <span>Küche</span>
+                            <select id="kuche"><option value="">Alle Küchen</option></select>
+                        </label>
+                        <label class="filter-field">
+                            <span>Max. Zeit (Min.)</span>
+                            <input type="number" id="max_zeit" placeholder="z.B. 30">
+                        </label>
+                        <label class="filter-field">
+                            <span>Portionen</span>
+                            <input type="number" id="portionen" placeholder="z.B. 4">
+                        </label>
+                        <button id="reset-filters-btn" class="btn btn-secondary">Filter zurücksetzen</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recipe-list-section" class="recipe-list-section">
+            <div class="container">
+                <h2 id="results-title">Alle Rezepte</h2>
+                <div id="loading-indicator" class="hidden">
+                    <div class="spinner"></div>
+                </div>
+                <div id="error-container" class="hidden"></div>
+                <div id="recipe-grid">
+                    <!-- Rezeptkarten werden hier per JS eingefügt -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="modal-backdrop" class="modal-backdrop hidden"></div>
+
+    <div id="login-modal" class="modal hidden">
+        <button class="modal-close"><i class="fas fa-times"></i></button>
+        <h2>Anmelden</h2>
+        <form id="login-form">
+            <div id="login-error" class="form-error hidden"></div>
+            <input type="text" id="login-username" placeholder="Benutzername" required>
+            <input type="password" id="login-password" placeholder="Passwort" required>
+            <button type="submit" class="btn btn-primary">Anmelden</button>
+        </form>
+    </div>
+
+
+    <div id="register-modal" class="modal hidden">
+        <button class="modal-close"><i class="fas fa-times"></i></button>
+        <h2>Registrieren</h2>
+        <form id="register-form">
+            <div id="register-error" class="form-error hidden"></div>
+            <input type="text" id="reg-username" placeholder="Benutzername" required>
+            <input type="email" id="reg-email" placeholder="E-Mail" required>
+            <input type="text" id="reg-firstname" placeholder="Vorname" required>
+            <input type="text" id="reg-lastname" placeholder="Nachname" required>
+            <input type="password" id="reg-password" placeholder="Passwort" required>
+            <button type="submit" class="btn btn-primary">Konto erstellen</button>
+        </form>
+    </div>
+
+    <div id="recipe-modal" class="modal modal-lg hidden">
+        <button class="modal-close"><i class="fas fa-times"></i></button>
+        <div id="recipe-detail-content">
+            <!-- Rezeptdetails werden hier per JS eingefügt -->
+        </div>
+    </div>
+
+    <div id="add-recipe-modal" class="modal modal-lg hidden">
+        <button class="modal-close"><i class="fas fa-times"></i></button>
+        <h2>Neues Rezept</h2>
+        <form id="add-recipe-form">
+            <div id="add-recipe-error" class="form-error hidden"></div>
+            <input type="text" id="recipe-title" placeholder="Titel" required>
+            <textarea id="recipe-description" placeholder="Kurze Beschreibung" required></textarea>
+            <input type="text" id="recipe-category" placeholder="Kategorie (z.B. Hauptgericht)" required>
+            <input type="text" id="recipe-kitchen" placeholder="Küche (z.B. Italienisch)" required>
+            <input type="text" id="recipe-diet" placeholder="Ernährungsform (z.B. vegetarisch)" required>
+            <input type="number" id="recipe-portions" placeholder="Portionen" min="1" max="20" required>
+            <input type="number" id="recipe-time" placeholder="Gesamtzeit (Minuten)" min="1" max="600" required>
+            <textarea id="recipe-ingredients" placeholder="Zutaten (eine pro Zeile)" required></textarea>
+            <textarea id="recipe-steps" placeholder="Zubereitungsschritte (eine pro Zeile)" required></textarea>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </form>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
