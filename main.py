@@ -10,7 +10,7 @@ recipe_platform_path = Path(__file__).parent / "recipe_platform"
 sys.path.insert(0, str(recipe_platform_path))
 
 # Importiere die eigentliche App
-from app.main import app  # type: ignore
+from app.main import app  # type: ignore # pylint: disable=wrong-import-position,import-error
 
 if __name__ == "__main__":
     import uvicorn
