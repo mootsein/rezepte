@@ -136,14 +136,15 @@ img {
 }
 
 .hero-gallery {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    justify-content: center;
     gap: 1rem;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .hero-image {
-    width: 100%;
+    width: 280px;
     height: 180px;
     object-fit: cover;
     border-radius: var(--border-radius);
@@ -166,18 +167,11 @@ img {
 
 @media (min-width: 576px) {
     .hero-gallery {
-        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
     .hero-image {
         height: 200px;
-    }
-}
-
-@media (min-width: 992px) {
-    .hero-gallery {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 1200px;
+        width: 300px;
     }
 }
 
