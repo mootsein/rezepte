@@ -102,6 +102,12 @@ img {
     text-align: center;
 }
 
+.hero-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media (min-width: 768px) {
     .hero-section {
         padding: 3rem 0 2rem;
