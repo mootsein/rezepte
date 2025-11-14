@@ -95,6 +95,62 @@ img {
     display: none !important;
 }
 
+/* === Dish of the Day === */
+.dish-of-day-section {
+    padding: 2.5rem 0;
+    background-color: var(--surface-color);
+}
+
+.dish-of-day-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.dish-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.dish-card:hover {
+    transform: translateY(-5px);
+}
+
+.dish-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.dish-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dish-info h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.dish-info p {
+    color: var(--text-secondary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
 /* === Hero Section === */
 .hero-section {
     background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);

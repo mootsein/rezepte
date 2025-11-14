@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: freshcook
+    env: python
+    buildCommand: "pip install -r requirements.txt && python init_db.py"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./data/recipes.db
+      - key: ALLOWED_ORIGINS
+        value: "*"

@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addRecipeForm = document.getElementById('add-recipe-form');
 
     // Dark Mode
-    const darkModeCheckbox = document.getElementById('dark-mode-checkbox');
+    const darkModeCheckbox = document.getElementById('dark-mode-toggle');
     const htmlElement = document.documentElement;
 
     // --- API Call Helper ---
@@ -425,18 +425,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const setupEventListeners = () => {
-        mobileMenuBtn.addEventListener('click', () => mainNav.classList.toggle('active'));
-        logoLink.addEventListener('click', (e) => {
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => mainNav.classList.toggle('active'));
+        if (logoLink) logoLink.addEventListener('click', (e) => {
             e.preventDefault();
             resetFilters();
         });
         
-        document.getElementById('login-btn').addEventListener('click', () => openModal(loginModal));
-        document.getElementById('register-btn').addEventListener('click', () => openModal(registerModal));
-        document.getElementById('logout-btn').addEventListener('click', logout);
-        document.getElementById('favorites-btn').addEventListener('click', showFavorites);
-        document.getElementById('random-btn').addEventListener('click', getRandomRecipe);
-        addRecipeBtn.addEventListener('click', openAddRecipeModal);
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const favoritesBtn = document.getElementById('favorites-btn');
+        const randomBtn = document.getElementById('random-btn');
+        
+        if (loginBtn) loginBtn.addEventListener('click', () => openModal(loginModal));
+        if (registerBtn) registerBtn.addEventListener('click', () => openModal(registerModal));
+        if (logoutBtn) logoutBtn.addEventListener('click', logout);
+        if (favoritesBtn) favoritesBtn.addEventListener('click', showFavorites);
+        if (randomBtn) randomBtn.addEventListener('click', getRandomRecipe);
+        if (addRecipeBtn) addRecipeBtn.addEventListener('click', openAddRecipeModal);
 
         modalBackdrop.addEventListener('click', () => {
             closeModal(loginModal);
@@ -475,16 +481,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Dish of the Day
+        const dishCard = document.querySelector('.dish-card');
+        if (dishCard) {
+            dishCard.addEventListener('click', () => {
+                const recipeId = dishCard.dataset.recipeId;
+                if (recipeId) showRecipeDetail(recipeId);
+            });
+        }
+
         // Dark Mode
-        darkModeCheckbox.addEventListener('change', () => {
-            if (darkModeCheckbox.checked) {
-                htmlElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                htmlElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-            }
-        });
+        if (darkModeCheckbox) {
+            darkModeCheckbox.addEventListener('change', (e) => {
+                const theme = e.target.checked ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        }
     };
 
     // --- Initial Load ---
@@ -492,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set theme on initial load
         if (localStorage.getItem('theme') === 'dark') {
             htmlElement.setAttribute('data-theme', 'dark');
-            darkModeCheckbox.checked = true;
+            if (darkModeCheckbox) darkModeCheckbox.checked = true;
         }
 
         // Parse URL for filters
